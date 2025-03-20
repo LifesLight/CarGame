@@ -1,6 +1,7 @@
 package edu.kit.cargame.io.view.gamescreen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
@@ -50,6 +51,7 @@ public class SinglePlayerGameRenderer {
     private static final float GAME_RATIO = (float) GAME_WIDTH / GAME_HEIGHT;
     private static final int SCORE_X = 5;
     private static final int SCORE_Y = 460;
+    private static final int COUNTDOWN_SIZE = 200;
     // The texture might be bigger than the game for super sampling
     private final int gameTextureWidth;
     private final int gameTextureHeight;
@@ -138,6 +140,22 @@ public class SinglePlayerGameRenderer {
         textRenderer.drawText(scoreText, SCORE_X, SCORE_Y, batch);
         batch.end();
 
+        // Draw countdown on top
+        if (countDown > 0) {
+            // Draw gray translucent background
+            batch.begin();
+            batch.setColor(0.1f, 0.1f, 0.1f, 0.5f);
+            batch.draw(TextureCache.getTexture("game/box.png"), 0, 0, GAME_WIDTH, GAME_HEIGHT);
+            batch.end();
+
+            //draw countdown sprite
+            batch.begin();
+            Texture texture = TextureCache.getTexture("game/countdown/" + countDown + ".png");
+            batch.draw(texture,
+                (GAME_WIDTH - COUNTDOWN_SIZE) / 2.0f, (GAME_HEIGHT - COUNTDOWN_SIZE) / 2.0f, COUNTDOWN_SIZE, COUNTDOWN_SIZE);
+            batch.end();
+        }
+
         gameRenderTarget.end();
 
         renderTarget.begin(50.0f / 255.0f, 60f / 255f, 57f / 255f, 1);
@@ -153,23 +171,6 @@ public class SinglePlayerGameRenderer {
             pointToScreenSpace(game.getPlayerCar().getGlobalBoundingBox().getMiddleRight()));
         gameRenderTarget.drawToScreen(x, y, width, height, 0, 0, gameTextureWidth, gameTextureHeight, true);
 
-
-        // Draw countdown on top
-        if (countDown > 0) {
-            // Draw gray translucent background
-            batch.begin();
-            batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, windowWidth, windowHeight));
-            batch.setColor(0.1f, 0.1f, 0.1f, 0.5f);
-            batch.draw(TextureCache.getTexture("game/box.png"), 0, 0, windowWidth, windowHeight);
-            batch.end();
-
-            batch.begin();
-            batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, windowWidth, windowHeight));
-            float size = maxSize / 5;
-            batch.draw(TextureCache.getTexture("game/countdown/" + countDown + ".png"),
-                (windowWidth - size) / 2, (windowHeight - size) / 2, size, size);
-            batch.end();
-        }
         renderTarget.end();
     }
 

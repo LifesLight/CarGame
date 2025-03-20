@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.kit.cargame.common.logging.LoggerManagement;
+
 /**
  * ScoreListProviderJson A ScoreListProvider loading and saving the ScoreList
  * from a file named
@@ -25,7 +27,7 @@ public class ScoreListProviderJson implements ScoreListProvider {
             // Read the JSON file and convert it into a ScoreList object
             File file = new File(FILE_NAME);
             if (!file.exists()) {
-                System.out.println("File not found, json store failed");
+                LoggerManagement.getLogger().warning("Could not load the score list.");
                 return Optional.empty();
 
             }
@@ -44,7 +46,7 @@ public class ScoreListProviderJson implements ScoreListProvider {
             // Serialize the ScoreList object to JSON and write to file
             objectMapper.writeValue(new File(FILE_NAME), list);
         } catch (IOException ignored) {
-            //TODO catch
+            LoggerManagement.getLogger().warning("Could not save the score list.");
         }
     }
 }

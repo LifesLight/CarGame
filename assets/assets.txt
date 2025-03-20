@@ -3898,6 +3898,7 @@ pause_menu/mute1.png
 pause_menu/mute2.png
 pause_menu/mute3.png
 pause_menu/mute4.png
+score.json
 special_characters/large/s1.png
 special_characters/large/s2.png
 special_characters/normal/s1.png

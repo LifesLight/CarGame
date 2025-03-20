@@ -74,15 +74,16 @@ public final class Pathfinding {
 
 
     /**
-     * TODO ALEX
+     * Computes the Path for moving cars to ensure we know a non-conflicting path before we spawn it.
+     * We store the computed keypoints in the new car.
      *
-     * @param spawnCandidates
-     * @param laneCount
-     * @param height
-     * @param game
-     * @param chunk
-     * @param spawner
-     * @return
+     * @param spawnCandidates Input spawn candidates
+     * @param laneCount how many lanes the game has
+     * @param height the game height is
+     * @param game reference to game
+     * @param chunk the chunk to work in
+     * @param spawner the parent spawner
+     * @return Spawn candidates with configured keypoint's
      */
     public static List<SpawnCandidate> configureKeypoints(List<SpawnCandidate> spawnCandidates, int laneCount, float height,
                                                           Game game, Chunk chunk, Spawner spawner) {

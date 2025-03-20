@@ -226,7 +226,7 @@ public class CarMenu extends Menu<CarMenuAction> {
     }
 
     private void drawHighScore(CarMenuOffset offset, int score) {
-        textRenderer.drawText(String.valueOf(score), stage.getWidth() / 2f + offset.offsetX() + HIGH_SCORE_OFFSET_X,
+        textRenderer.drawText(score==0? "---":String.valueOf(score), stage.getWidth() / 2f + offset.offsetX() + HIGH_SCORE_OFFSET_X,
             stage.getHeight() / 2f + offset.offsetY() + HIGH_SCORE_OFFSET_Y);
     }
 
